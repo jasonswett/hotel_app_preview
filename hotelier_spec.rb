@@ -15,8 +15,9 @@ class Hotel
     true
   end
 
-  def check_out_guest(guest_name)
+  def check_out_guest(guest_name, room_number)
     @guests.delete(guest_name)
+    @occupied_rooms.delete(room_number)
   end
 end
 
@@ -49,9 +50,17 @@ describe Hotel do
     end
   end
 
-  it 'can check a guest out' do
-    hotel.check_in_guest('Buddy Holly', 303)
-    hotel.check_out_guest('Buddy Holly')
-    expect(hotel.guests).not_to include 'Buddy Holly'
+  describe 'checking out a guest' do
+    it "removes the guest from the hotel's guest list" do
+      hotel.check_in_guest('Buddy Holly', 303)
+      hotel.check_out_guest('Buddy Holly', 303)
+      expect(hotel.guests).not_to include 'Buddy Holly'
+    end
+
+    it 'frees up the room' do
+      hotel.check_in_guest('Roy Orbison', 302)
+      hotel.check_out_guest('Roy Orbison', 302)
+      expect(hotel.check_in_guest('George Harrison', 302)).to be true
+    end
   end
 end
