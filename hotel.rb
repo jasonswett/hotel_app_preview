@@ -1,4 +1,3 @@
-require './guest'
 require './booking'
 
 class Hotel
@@ -26,7 +25,7 @@ class Hotel
   end
 
   def can_book?(booking)
-    room_vacant?(booking.room_number)
+    booking.valid? && room_vacant?(booking.room_number)
   end
 
   def occupied_room_numbers

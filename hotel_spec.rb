@@ -86,5 +86,18 @@ describe Hotel do
         expect(hotel.can_book?(booking)).to be false
       end
     end
+
+    context 'booking itself is invalid' do
+      it 'returns false' do
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-02',
+          check_out_date: '2018-01-01'
+        )
+
+        expect(hotel.can_book?(booking)).to be false
+      end
+    end
   end
 end
