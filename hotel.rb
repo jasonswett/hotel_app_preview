@@ -10,15 +10,23 @@ class Hotel
   end
 
   def check_in_guest(check_in_date:, check_out_date:)
-    booking = Booking.new(
-      hotel: self,
-      room_number: vacant_room_numbers[0],
-      check_in_date: check_in_date,
-      check_out_date: check_out_date
+    add_booking(
+      Booking.new(
+        hotel: self,
+        room_number: vacant_room_numbers[0],
+        check_in_date: check_in_date,
+        check_out_date: check_out_date
+      )
     )
+  end
 
+  def add_booking(booking)
     @bookings << booking
     booking
+  end
+
+  def can_book?(booking)
+    room_vacant?(booking.room_number)
   end
 
   def occupied_room_numbers
@@ -31,5 +39,9 @@ class Hotel
 
   def remove_booking(booking)
     @bookings.delete(booking)
+  end
+
+  def room_vacant?(room_number)
+    vacant_room_numbers.include?(room_number)
   end
 end

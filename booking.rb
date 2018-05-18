@@ -8,6 +8,10 @@ class Booking
     @check_out_date = Date.parse(check_out_date)
   end
 
+  def valid?
+    @check_out_date > @check_in_date
+  end
+
   def complete
     @hotel.remove_booking(self)
   end

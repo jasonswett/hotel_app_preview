@@ -31,4 +31,32 @@ describe Booking do
       expect(booking.length_in_days).to eq(2)
     end
   end
+
+  describe '#valid?' do
+    context 'when check_out_date precedes check_in_date' do
+      it 'is not valid' do
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-05',
+          check_out_date: '2018-01-01'
+        )
+
+        expect(booking).not_to be_valid
+      end
+    end
+
+    context 'when stay length is 0 days' do
+      it 'is not valid' do
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-01',
+          check_out_date: '2018-01-01'
+        )
+
+        expect(booking).not_to be_valid
+      end
+    end
+  end
 end

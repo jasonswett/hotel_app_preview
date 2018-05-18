@@ -64,4 +64,27 @@ describe Hotel do
       expect(second_booking.room_number).to eq(101)
     end
   end
+
+  describe '#can_book?' do
+    context 'when room is occupied' do
+      it 'returns false' do
+        previous_booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-01',
+          check_out_date: '2018-01-02'
+        )
+        hotel.add_booking(previous_booking)
+
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-01',
+          check_out_date: '2018-01-02'
+        )
+
+        expect(hotel.can_book?(booking)).to be false
+      end
+    end
+  end
 end
