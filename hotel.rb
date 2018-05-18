@@ -10,7 +10,7 @@ class Hotel
   end
 
   def check_in_guest(guest_name)
-    booking = Booking.new(vacant_room_numbers[0])
+    booking = Booking.new(self, vacant_room_numbers[0])
     @bookings << booking
     booking
   end
@@ -21,5 +21,9 @@ class Hotel
 
   def vacant_room_numbers
     @rooms - occupied_room_numbers
+  end
+
+  def remove_booking(booking)
+    @bookings.delete(booking)
   end
 end

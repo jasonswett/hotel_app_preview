@@ -5,19 +5,12 @@ require './booking'
 describe Booking do
   let(:hotel) { Hotel.new([100, 101, 102, 103]) }
 
-  describe 'when all rooms are vacant' do
-    it 'assigns the first room number' do
-      booking = hotel.check_in_guest('George Harrison')
-      expect(booking.room_number).to eq(100)
-    end
-  end
+  describe '#complete' do
+    it 'frees up the room' do
+      booking = hotel.check_in_guest('Elvis Presley')
+      booking.complete
 
-  describe 'when one room is occupied' do
-    it 'assigns the next room number' do
-      first_booking = hotel.check_in_guest('George Harrison')
-      second_booking = hotel.check_in_guest('Roy Orbison')
-
-      expect(second_booking.room_number).to eq(101)
+      expect(hotel.vacant_room_numbers).to include(booking.room_number)
     end
   end
 end
