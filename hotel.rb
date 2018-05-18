@@ -9,8 +9,14 @@ class Hotel
     @bookings = []
   end
 
-  def check_in_guest(guest_name)
-    booking = Booking.new(self, vacant_room_numbers[0])
+  def check_in_guest(check_in_date:, check_out_date:)
+    booking = Booking.new(
+      hotel: self,
+      room_number: vacant_room_numbers[0],
+      check_in_date: check_in_date,
+      check_out_date: check_out_date
+    )
+
     @bookings << booking
     booking
   end
