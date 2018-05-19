@@ -33,6 +33,19 @@ describe Booking do
   end
 
   describe '#valid?' do
+    context 'when everything is okay' do
+      it 'is valid' do
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-01',
+          check_out_date: '2018-01-02'
+        )
+
+        expect(booking).to be_valid
+      end
+    end
+
     context 'when check_out_date precedes check_in_date' do
       it 'is not valid' do
         booking = Booking.new(
@@ -53,6 +66,19 @@ describe Booking do
           room_number: 100,
           check_in_date: '2018-01-01',
           check_out_date: '2018-01-01'
+        )
+
+        expect(booking).not_to be_valid
+      end
+    end
+
+    context 'when hotel is missing' do
+      it 'is not valid' do
+        booking = Booking.new(
+          hotel: 'not a hotel',
+          room_number: 100,
+          check_in_date: '2018-01-01',
+          check_out_date: '2018-01-02'
         )
 
         expect(booking).not_to be_valid
