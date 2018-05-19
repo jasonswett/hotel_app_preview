@@ -9,7 +9,7 @@ class Booking
   end
 
   def valid?
-    @check_out_date > @check_in_date && @hotel.is_a?(Hotel)
+    @check_out_date > @check_in_date && @hotel.is_a?(Hotel) && @room_number.is_a?(Integer)
   end
 
   def complete
