@@ -12,7 +12,7 @@ class Hotel
     add_booking(
       Booking.new(
         hotel: self,
-        room: vacant_rooms[0],
+        room_number: vacant_room_numbers[0],
         check_in_date: check_in_date,
         check_out_date: check_out_date
       )
@@ -25,22 +25,22 @@ class Hotel
   end
 
   def can_book?(booking)
-    booking.valid? && room_vacant?(booking.room)
+    booking.valid? && room_vacant?(booking.room_number)
   end
 
-  def occupied_rooms
-    @bookings.map(&:room)
+  def occupied_room_numbers
+    @bookings.map(&:room_number)
   end
 
-  def vacant_rooms
-    @rooms - occupied_rooms
+  def vacant_room_numbers
+    @rooms - occupied_room_numbers
   end
 
   def remove_booking(booking)
     @bookings.delete(booking)
   end
 
-  def room_vacant?(room)
-    vacant_rooms.include?(room)
+  def room_vacant?(room_number)
+    vacant_room_numbers.include?(room_number)
   end
 end

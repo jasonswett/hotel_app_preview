@@ -1,16 +1,8 @@
 require 'rspec'
 require './hotel'
-require './room'
 
 describe Hotel do
-  let(:hotel) do
-    Hotel.new([
-      Room.new(number: 100, rate: 150),
-      Room.new(number: 101, rate: 150),
-      Room.new(number: 102, rate: 150),
-      Room.new(number: 103, rate: 150)
-    ])
-  end
+  let(:hotel) { Hotel.new([100, 101, 102, 103]) }
 
   describe '#check_in_guest' do
     it "adds a booking to the hotel's bookings" do
@@ -24,25 +16,25 @@ describe Hotel do
     end
   end
 
-  describe '#occupied_rooms' do
+  describe '#occupied_room_numbers' do
     it 'returns the numbers of any occupied rooms' do
       hotel.check_in_guest(
         check_in_date: '2018-01-01',
         check_out_date: '2018-01-02'
       )
 
-      expect(hotel.occupied_rooms.first.number).to eq(100)
+      expect(hotel.occupied_room_numbers).to eq([100])
     end
   end
 
-  describe '#vacant_rooms' do
+  describe '#vacant_room_numbers' do
     it 'returns the numbers of any vacant rooms' do
       hotel.check_in_guest(
         check_in_date: '2018-01-01',
         check_out_date: '2018-01-02'
       )
 
-      expect(hotel.vacant_rooms.map(&:number)).to eq([101, 102, 103])
+      expect(hotel.vacant_room_numbers).to eq([101, 102, 103])
     end
   end
 
@@ -53,7 +45,7 @@ describe Hotel do
         check_out_date: '2018-01-02'
       )
 
-      expect(booking.room.number).to eq(100)
+      expect(booking.room_number).to eq(100)
     end
   end
 
@@ -69,7 +61,7 @@ describe Hotel do
         check_out_date: '2018-01-02'
       )
 
-      expect(second_booking.room.number).to eq(101)
+      expect(second_booking.room_number).to eq(101)
     end
   end
 
@@ -78,7 +70,7 @@ describe Hotel do
       it 'returns false' do
         previous_booking = Booking.new(
           hotel: hotel,
-          room: Room.new(number: 100, rate: 150),
+          room_number: 100,
           check_in_date: '2018-01-01',
           check_out_date: '2018-01-02'
         )
@@ -86,7 +78,7 @@ describe Hotel do
 
         booking = Booking.new(
           hotel: hotel,
-          room: Room.new(number: 100, rate: 150),
+          room_number: 100,
           check_in_date: '2018-01-01',
           check_out_date: '2018-01-02'
         )
@@ -99,7 +91,7 @@ describe Hotel do
       it 'returns false' do
         booking = Booking.new(
           hotel: hotel,
-          room: Room.new(number: 100, rate: 150),
+          room_number: 100,
           check_in_date: '2018-01-02',
           check_out_date: '2018-01-01'
         )

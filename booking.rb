@@ -1,15 +1,16 @@
 class Booking
-  attr_accessor :room
+  attr_accessor :room_number
+  ROOM_PRICE = 150
 
-  def initialize(hotel:, room:, check_in_date:, check_out_date:)
+  def initialize(hotel:, room_number:, check_in_date:, check_out_date:)
     @hotel = hotel
-    @room = room
+    @room_number = room_number
     @check_in_date = Date.parse(check_in_date)
     @check_out_date = Date.parse(check_out_date)
   end
 
   def valid?
-    @check_out_date > @check_in_date && @hotel.is_a?(Hotel) && @room.is_a?(Room)
+    @check_out_date > @check_in_date && @hotel.is_a?(Hotel) && @room_number.is_a?(Integer)
   end
 
   def complete
@@ -21,6 +22,6 @@ class Booking
   end
 
   def price
-    @room.rate * length_in_days
+    ROOM_PRICE * length_in_days
   end
 end
