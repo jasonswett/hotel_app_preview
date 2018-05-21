@@ -1,6 +1,5 @@
 class Booking
   attr_accessor :room_number
-  ROOM_PRICE = 150
 
   def initialize(hotel:, room_number:, check_in_date:, check_out_date:)
     @hotel = hotel
@@ -19,9 +18,5 @@ class Booking
 
   def length_in_days
     @check_out_date - @check_in_date
-  end
-
-  def price
-    ROOM_PRICE * length_in_days
   end
 end
