@@ -1,5 +1,7 @@
+require 'date'
+
 class Booking
-  attr_accessor :room_number
+  attr_reader :room_number, :check_in_date, :check_out_date
 
   def initialize(hotel:, room_number:, check_in_date:, check_out_date:)
     @hotel = hotel
@@ -30,6 +32,6 @@ class Booking
   end
 
   def length_in_days
-    @check_out_date - @check_in_date
+    (@check_out_date - @check_in_date).to_i
   end
 end
