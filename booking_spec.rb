@@ -97,5 +97,31 @@ describe Booking do
         expect(booking).not_to be_valid
       end
     end
+
+    context 'when check in date is invalid' do
+      it 'is not valid' do
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: 'not a date',
+          check_out_date: '2018-01-02'
+        )
+
+        expect(booking).not_to be_valid
+      end
+    end
+
+    context 'when check out date is invalid' do
+      it 'is not valid' do
+        booking = Booking.new(
+          hotel: hotel,
+          room_number: 100,
+          check_in_date: '2018-01-01',
+          check_out_date: 'not a date'
+        )
+
+        expect(booking).not_to be_valid
+      end
+    end
   end
 end
