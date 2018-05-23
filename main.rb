@@ -1,0 +1,2 @@
+require './hotel'
+require './booking'
